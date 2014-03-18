@@ -16,4 +16,13 @@ describe Dynamix do
   	brain.attach(customer, "parent", customer2)
   	customer.parent.must_equal customer2
   end
+
+  it "should allow a new class to be created dynamically" do
+  	brain = Dynamix::Brain.new
+  	weirdCrazyObject = brain.create('weirdCrazyObject')
+  	brain.add_attribute(weirdCrazyObject, "stuff")
+  	weirdCrazyObject.stuff = "hi"
+  	weirdCrazyObject.stuff.must_equal "hi"
+  end
+
 end

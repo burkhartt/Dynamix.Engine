@@ -14,6 +14,11 @@ module Dynamix
 			add_attribute(refObj, attribute)
 			eval("refObj.#{attribute} = obj")
 		end
+
+		def create(objName)
+			class_name = objName.capitalize
+			Object.const_set(class_name, Class.new)
+		end
 	end
 
 end
