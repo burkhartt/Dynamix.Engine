@@ -12,8 +12,9 @@ describe Dynamix do
   it "should allow an object to be attached to another object" do
   	customer = Dynamix::Customer.new
   	customer2 = Dynamix::Customer.new
-  	brain = Dynamix::Brain.new
-  	brain.attach(customer, "parent", customer2)
+  	#brain = Dynamix::Brain.new
+  	#brain.attach(customer, "parent", customer2)
+    customer.parent = customer2
   	customer.parent.must_equal customer2
   end
 end
