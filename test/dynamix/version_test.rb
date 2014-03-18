@@ -1,28 +1,28 @@
 require_relative '../test_helper'
 
 describe Dynamix do
-  it "should allow an attribute to be added to an object" do
-  	customer = Dynamix::Customer.new
-  	brain = Dynamix::Brain.new
-    brain.add_attribute(customer, "email")
-    customer.email = "my email" 
-    customer.email.must_equal "my email"
+  it "should convert a json object to a basic schema" do
+  	json = "{ \"person\" : { \"attributes\" : [ \"first_name\", \"last_name\", \"email\"]}}"
+  	brain = Dynamix::Brain.new(json)
+  	person = brain.create("person")
+  	person.first_name = "Tim"
+  	person.first_name.must_equal "Tim"
   end
 
-  it "should allow an object to be attached to another object" do
-  	customer = Dynamix::Customer.new
-  	customer2 = Dynamix::Customer.new
-  	brain = Dynamix::Brain.new
-  	brain.attach(customer, "parent", customer2)
-  	customer.parent.must_equal customer2
+  it "should allow attributes to be added after the schema has been defined" do
+  	json = "{ \"person\" : { \"attributes\" : [ \"first_name\", \"last_name\", \"email\"]}}"
+  	brain = Dynamix::Brain.new(json)
+  	brain.add_attribute("person", "date_of_birth")
+  	person = brain.create("person")
+  	person.date_of_birth = "1/1/2000"
+  	person.date_of_birth.must_equal "1/1/2000"
   end
 
-  it "should allow a new class to be created dynamically" do
-  	brain = Dynamix::Brain.new
-  	weirdCrazyObject = brain.create('weirdCrazyObject')
-  	brain.add_attribute(weirdCrazyObject, "stuff")
-  	weirdCrazyObject.stuff = "hi"
-  	weirdCrazyObject.stuff.must_equal "hi"
+  it "should allow a schema to be added to an existing class definition" do
+  	json = "{ \"person\" : { \"attributes\" : [ \"first_name\", \"last_name\", \"email\"]}}"
+  	brain = Dynamix::Brain.new(json)
+  	brain.attach("person", "parent", json)
+  	person.parent.first_name = "Tim"
+  	person.parent.first_name.must_equal "Tim"
   end
-
 end

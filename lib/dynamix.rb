@@ -1,23 +1,34 @@
 require_relative "./dynamix/version"
+require 'json'
 
 module Dynamix
-	class Customer
-
-	end
-
 	class Brain
-		def add_attribute(obj, attribute)
-			obj.class.module_eval { eval("attr_accessor :#{attribute}") }
+		def initialize(schema)
+			@schema = JSON.parse(schema)
 		end
 
-		def attach(refObj, attribute, obj)
-			add_attribute(refObj, attribute)
-			eval("refObj.#{attribute} = obj")
+		def add_attribute(class_name, attribute)
+			@schema[class_name]["attributes"].push(attribute)
 		end
 
-		def create(objName)
-			class_name = objName.capitalize
-			Object.const_set(class_name, Class.new)
+		def attach(class_name, attribute_name, schema)
+			add_attribute(class_name, attribute_name)
+			schema_to_attach = JSON.parse(schema)
+
+			schema_to_attach.each do |new_class_name, attributes|
+				@schema[class_name][attribute_name] = schema_to_attach
+			end
+			puts @schema
+		end
+
+		def create(class_name)
+			attributes = @schema[class_name]["attributes"]
+			class_name = class_name.capitalize
+			obj = Object.const_set(class_name, Class.new)
+			attributes.each do |attribute|
+				obj.class.module_eval { eval("attr_accessor :#{attribute}") }
+			end
+			return obj
 		end
 	end
 

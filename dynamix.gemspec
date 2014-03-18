@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 require File.expand_path('../lib/dynamix/version', __FILE__)
+require 'json'
 
 Gem::Specification.new do |gem|
   gem.authors       = ["Tim Burkhart"]
