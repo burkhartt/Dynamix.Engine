@@ -47,6 +47,6 @@ describe Dynamix do
 		class_definitions = architect.get_class_definitions()
 
 		parent = class_definitions["customer"]
-		attributes = parent.get_references("parent")
+		parent.get_reference("parent")[0].get_attributes.include?("first_name").must_equal true
 	end
 end
