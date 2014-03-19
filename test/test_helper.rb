@@ -1,4 +1,5 @@
 require 'minitest/autorun'
 require 'minitest/spec'
 require 'minitest/pride'
-require_relative '../lib/dynamix.rb'
+require_relative '../lib/architect.rb'
+require_relative '../lib/class_definition.rb'
