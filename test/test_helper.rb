@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/spec'
 require 'minitest/pride'
-require_relative '../lib/architect.rb'
+require_relative '../lib/blueprint_manager.rb'
 require_relative '../lib/class_definition.rb'
+require_relative '../lib/object_architect.rb'

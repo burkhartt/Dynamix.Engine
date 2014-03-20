@@ -14,10 +14,9 @@ module Dynamix
 
 			references.each do |reference|
 				reference_attribute_name = reference["name"]
-				reference_schemas = reference["schema"]
-				reference_schemas.each do |reference_schema|
-					reference_class_definition = ClassDefinition.new(reference_schema)
-					add_reference(reference_attribute_name, reference_class_definition)
+				reference_types = reference["reference_types"]
+				reference_types.each do |reference_type|
+					add_reference(reference_attribute_name, reference_type)
 				end
 			end			
 		end
