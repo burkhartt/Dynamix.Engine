@@ -14,10 +14,8 @@ module Dynamix
 
 			references.each do |reference|
 				reference_attribute_name = reference["name"]
-				reference_types = reference["reference_types"]
-				reference_types.each do |reference_type|
-					add_reference(reference_attribute_name, reference_type)
-				end
+				reference_type = reference["reference_type"]
+				add_reference(reference_attribute_name, reference_type)
 			end			
 		end
 
@@ -26,11 +24,7 @@ module Dynamix
 		end
 
 		def add_reference(attribute, reference)
-			if (!@references.has_key?(attribute))
-				@references[attribute] = Array.new
-			end
-
-			@references[attribute].push(reference)
+			@references[attribute] = reference
 		end
 
 		def get_name()
@@ -43,6 +37,10 @@ module Dynamix
 
 		def get_reference(attribute)
 			@references[attribute]
+		end
+
+		def get_references()
+			@references
 		end
 	end
 end

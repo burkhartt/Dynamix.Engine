@@ -27,15 +27,13 @@ describe Dynamix do
 				    "references": [
 				      {
 				        "name": "parent",
-				        "reference_types": [
-				          "customer"
-				        ]
+				        "reference_type": "customer"
 				      }
 				    ]
 				  }
 				]'
 		architect = Dynamix::BlueprintManager.add_blueprint(json)
 		customer = Dynamix::BlueprintManager.get_class_definition("customer")
-		customer.get_reference("parent")[0].must_equal "customer"
+		customer.get_reference("parent").must_equal "customer"
 	end
 end

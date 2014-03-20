@@ -17,13 +17,20 @@ module Dynamix
 			klass = Object.const_set(class_name.capitalize,Class.new)
 
 			attributes = class_definition.get_attributes()
+			references = class_definition.get_references()
 
 			klass.class_eval do
 		  		attr_accessor *attributes
+		  		attr_accessor *references.keys
 
 		  		define_method(:initialize) do |*values|
 		    		attributes.each_with_index do |attribute,i|
 		      			instance_variable_set("@"+attribute, values[i])
+		    		end
+
+		    		references.each do |attribute, reference_class_name|
+		    			reference_object = Object.const_get(reference_class_name.capitalize).new()
+		    			instance_variable_set("@"+attribute, reference_object)
 		    		end
 		  		end
 			end
