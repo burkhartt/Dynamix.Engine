@@ -22,18 +22,6 @@ module Dynamix
 		def self.get_class_definitions()
 			@@class_definitions
 		end
-
-		
-
-		def create(class_name)
-			attributes = @schema[class_name]["attributes"]
-			class_name = class_name.capitalize
-			obj = Object.const_set(class_name, Class.new)
-			attributes.each do |attribute|
-				obj.class.module_eval { eval("attr_accessor :#{attribute}") }
-			end
-			return obj
-		end
 	end
 
 end
