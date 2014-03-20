@@ -41,7 +41,6 @@ describe Dynamix do
 	it "should create a class with reference to another class even if that reference class has not been added to the domain yet" do
 		json = '[{ "name" : "customer", "attributes" : ["first_name", "middle_name"], "references" : [ { "name" : "home_address", "reference_type" : "address" }] },
 				 { "name" : "address", "attributes" : ["street", "city"] }]'
-		puts "-----"
 		Dynamix::BlueprintManager.add_blueprint(json)
 		Dynamix::ObjectArchitect.build()
 		cus = Customer.new()
@@ -51,11 +50,24 @@ describe Dynamix do
 
 	it "should create a class with a reference to itself" do
 		json = '[{ "name" : "customer", "attributes" : ["first_name", "middle_name"], "references" : [ { "name" : "parent", "reference_type" : "customer" }] }]'
-		puts "-----"
 		Dynamix::BlueprintManager.add_blueprint(json)
 		Dynamix::ObjectArchitect.build()
 		cus = Customer.new()
 		cus.parent.first_name = "Joe"
 		cus.parent.first_name.must_equal "Joe"
+		cus.parent.parent.parent.parent.parent.parent.first_name = "Tim"
+		cus.parent.parent.parent.parent.parent.parent.first_name.must_equal "Tim"
+	end
+
+	it "should create a class with a reference to itself and another class" do
+		json = '[{ "name" : "customer", "attributes" : ["first_name", "middle_name"], "references" : [ { "name" : "parent", "reference_type" : "customer" }, { "name" : "home_address", "reference_type" : "address"}] },
+		{ "name" : "address", "attributes" : ["street", "city"] }]'
+		Dynamix::BlueprintManager.add_blueprint(json)
+		Dynamix::ObjectArchitect.build()
+		cus = Customer.new()
+		cus.parent.first_name = "Joe"
+		cus.parent.first_name.must_equal "Joe"
+		cus.parent.parent.parent.parent.parent.parent.home_address.street = "1 Housedownthe St"
+		cus.parent.parent.parent.parent.parent.parent.home_address.street.must_equal "1 Housedownthe St"
 	end
 end

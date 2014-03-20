@@ -14,7 +14,9 @@ module Dynamix
 
 		private
 		def self.register_class(class_name, class_definition)
-			klass = Object.const_set(class_name.capitalize,Class.new)
+			class_name = class_name.capitalize
+			
+			klass = Object.const_set(class_name,Class.new)
 
 			attributes = class_definition.get_attributes()
 			references = class_definition.get_references()
@@ -29,8 +31,10 @@ module Dynamix
 		    		end
 
 		    		references.each do |attribute, reference_class_name|
-		    			reference_object = Object.const_get(reference_class_name.capitalize).new()
-		    			instance_variable_set("@"+attribute, reference_object)
+		    			if caller.size > 100
+		    				break
+		    			end
+		    			eval "@#{attribute} ||= #{reference_class_name.capitalize}.new"
 		    		end
 		  		end
 			end
