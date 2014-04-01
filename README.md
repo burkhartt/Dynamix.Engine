@@ -3,7 +3,7 @@
 A gem that takes a JSON string and dynamically creates a class structure.
 
 Example format:
-
+```
 [
 	{
 		"name" : "Car",
