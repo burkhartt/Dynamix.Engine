@@ -15,6 +15,18 @@ Example format:
 	},
 	{ 
 		"name" : "Animal",
-		"attributes" : "color"
+		"attributes" : [
+			"color"
+		],
+		"references" : [
+			{ 
+				"name" : "favorite_car",
+				"reference_type" : "Car"
+			},
+			{
+				"name" : "least_favorite_car",
+				"reference_type" : "Car"
+			}
+		]
 	}
 ]
