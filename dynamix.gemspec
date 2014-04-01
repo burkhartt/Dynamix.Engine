@@ -5,8 +5,8 @@ require 'json'
 Gem::Specification.new do |gem|
   gem.authors       = ["Tim Burkhart"]
   gem.email         = ["timmyb_84@hotmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Convert JSON string to dynamic classes}
+  gem.summary       = %q{}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)
